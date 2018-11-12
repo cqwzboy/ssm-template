@@ -26,4 +26,9 @@
         <property name="prefix" value="/static/html/"/>
         <property name="suffix" value=".html"/>
     </bean>
+
+    <!-- budo-graph web 监控拦截器 -->
+    <mvc:interceptors>
+        <bean class="org.budo.graph.druid.spring.web.interceptor.BudoGraphDruidSpringWebInterceptor" />
+    </mvc:interceptors>
 </beans>

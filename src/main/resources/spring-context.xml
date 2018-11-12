@@ -40,4 +40,10 @@
     </aop:config>
     <!-- 打开面向切面工具 -->
     <aop:aspectj-autoproxy />
+
+    <import resource="spring-budo-graph.xml"/>
+    <import resource="spring-activemq.xml"/>
+
+    <!-- 业务区 -->
+    <bean class="com.code.fuqinqin.job.MyJob" />
 </beans>

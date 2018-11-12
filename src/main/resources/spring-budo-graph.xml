@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="
+            http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/mvc
+            http://www.springframework.org/schema/mvc/spring-mvc.xsd
+            http://code.alibabatech.com/schema/dubbo
+            http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+            http://www.springframework.org/schema/aop
+            http://www.springframework.org/schema/aop/spring-aop.xsd
+       ">
+    <bean class="org.budo.support.spring.context.aware.BudoApplicationContextAware" />
+
+    <bean id="budoGraphService"
+          class="org.budo.graph.service.impl.BudoGraphServiceImpl"
+          p:jedisPool-ref="graphJedisPool"/>
+    <!-- 用于存储监控数据的Redis -->
+    <bean id="graphJedisPool" class="org.budo.jedis.pool.factory.BudoJedisPoolFactory"
+          p:host="180.76.250.235"
+          p:port="6379"
+          p:password="admin" />
+    <dubbo:application name="ssm-template"/>
+    <dubbo:registry protocol="zookeeper" address="47.106.201.17:2181"/>
+    <dubbo:reference id="registryService" interface="com.alibaba.dubbo.registry.RegistryService"/>
+    <dubbo:service interface="org.budo.graph.service.BudoGraphService" ref="budoGraphService"/>
+
+    <aop:config>
+        <aop:advisor
+                advice-ref="druid-aop-interceptor"
+                pointcut="execution(* com.code.fuqinqin..*.*(..))" />
+    </aop:config>
+    <bean id="druid-aop-interceptor"
+          class="org.budo.graph.druid.spring.aop.interceptor.BudoGraphDruidSpringAopInterceptor" />
+</beans>

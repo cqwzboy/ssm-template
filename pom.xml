@@ -20,6 +20,8 @@
     <spring.version>4.3.2.RELEASE</spring.version>
     <slf4j.version>1.7.7</slf4j.version>
     <log4j.version>1.2.17</log4j.version>
+    <budo-graph.version>0.0.3-bg-SNAPSHOT</budo-graph.version>
+    <dubbox_version>2.8.4</dubbox_version>
   </properties>
 
   <dependencies>
@@ -161,6 +163,34 @@
     </dependency>
     <!-- log end -->
 
+    <!-- 监控 -->
+    <dependency>
+      <groupId>org.budo</groupId>
+      <artifactId>budo-boot-starter-graph</artifactId>
+      <version>${budo-graph.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjweaver</artifactId>
+      <version>1.8.6</version>
+    </dependency>
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>dubbo</artifactId>
+      <version>${dubbox_version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.101tec</groupId>
+      <artifactId>zkclient</artifactId>
+      <version>0.9</version>
+    </dependency>
+
+    <!-- job 系统 -->
+    <dependency>
+      <groupId>com.tj.platform</groupId>
+      <artifactId>tj-job-common</artifactId>
+      <version>2.0</version>
+    </dependency>
   </dependencies>
 
   <build>
